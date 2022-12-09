@@ -1,0 +1,22 @@
+Module 1: Computer Structure
+
+Computations occur in the Central Processing Unit (CPU), or more specifically in the Arithmetic Logic Unit (ALU) which is located in the CPU.
+
+Wires are used to complete calculations.
+    • A wire can transmit 2 different values (on/off)
+
+We assign a type to these two values… A Bit
+    • A bit is the smallest unit of information (2 possible values: 0, 1)
+
+We can get more values by combining wires (combining bits).
+    • For example, combining two wires provides 4 different outputs
+        ◦ wire1/wire2 → (on/on, on/off, off/on, off/off)
+
+The number of values we can represent in this manner is directly correlated to the number of wires in the ALU.
+    • For example with 3 wires, the largest number of unique outputs is 8 → (2^3)
+
+A 32-bit machine denotes a machine with 32 wires for each ALU input & output 
+    • 32-bit machine = (2^32 values)
+    • 64-bit machine = (2^64 values)
+    
+
