@@ -1,0 +1,29 @@
+Typecasts (type conversions)
+
+Java allows the programmer to convert a value of one type into a value of a different type. To do this, you place the desired type in parentheses and immediately to the left of the value.
+
+(desired-type) value
+
+For example:   (double)3     converts the int value 3 to the double value that is the closest to 3.  In this case, the value is 3.0.
+
+   (short)100    converts the int value 100 to the short value that is the closts to 100.  In this case, the value is still 100 (but stored in 16 bits instead of 32 bits).
+   (int)3.8  coverts the double value 3.8 to the int value 3.
+   
+The typecast must "make sense".  In Java, you can convert between all the numeric primitive types, but not between boolean and a numeric primitive so:
+    	(int)false   <= error, you can't convert a boolean to a numbers
+	(int)'A'     <= this is legal.  Java considers a char to also be a number
+	
+Automatic Typecasts (called "type coercions") Values are automatically converted "narrower" to "wider" types.  A conversion from a "wider" to a "narrower" type requires an explicit typecast.  Generally, when converting to a wider type, Java converts the value to be as close as possible to the original value.  When converting to a narrower type, Java generally truncates the value.
+
+Widest:   double, float, long, int, short/char, byte  :  Narrowest
+
+Note that short and char are at the "same" level, and so you must explicitly typecast between these two types.
+
+Also note that boolean is not in this list.  You can not convert a value of type boolean to any other primitive.  You can not convert another primitive value to boolean.
+
+Ex:  double x = 5    <-   This is legal because 5 is type int and int is narrower than double.
+
+int y = 3.0     <-   This is illegal because 3.0 is type double, double is wider than int, and we need an explicity typecast
+int y = (int)3.0  <-  This is legal because the typecast is explicit.
+int y = x        <-   This is illegal because x is type double and y is the narrower type int
+int y = (int)x   <-   This is now legal

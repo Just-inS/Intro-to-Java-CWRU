@@ -1,0 +1,28 @@
+Introduction to Variables
+A variable is the name given to a location in memory.  In Java, variable has a type associated with it.
+A variable is used to store data.  In Java, you can only store values with the appropriate type into the variable.
+
+Creating Variables
+We call creating a variable "declaring the variable"
+
+A declaration has the form: type variable-name
+Two examples: int x / double ratio
+
+Java now sets aside a chunk of memory for each varialble.  The first is a 32-bit chunk that is associated with the name "x". Java will make sure that only values of type int can be stored in here.  (Remember that the type is what WE decide the value represents.  The computer does not care.  It is happy storing any 32-bit values there.)
+
+The second is a 64-bit chunk of memory that is associated with the name "ratio", and we can store values of type double in it.
+
+Storing Values in Variables
+We call storing a value "assigning a variable".
+
+To store a value in the variable, you use the = operator. variable = value
+For example: x = 161 / ratio = 40.75
+
+This is a source of confusion because the assignment operator looks like math's equality, but it is not an equality test. Instead, we are storing into the memory location named "x" the data that represents the int 161, and we are storing into the memory that is named "ratio" the data that represents the double value 40.75.
+
+Remember that Java is a strong typed language so x = 3.1415   <=  error, you promised x would store int, and you are giving it a double
+
+x = (int)3.1415   <= this is now legal, and it stores value 3 into the location named "x"
+
+To read the value stored in memory at a location, just use the name of the location: 
+x <= this evaluates to whatever value is stored in the memory location in "x", interpreted as data type int
