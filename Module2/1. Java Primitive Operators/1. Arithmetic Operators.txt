@@ -1,0 +1,20 @@
+Primitive operations and their type rules:
+
+Following are the type rules for the different primitive operators.  
+
+Please see your textbook for precedence and associativity rules.
+
+A few additional "shortcut" operators will be discussed around midterms.
+
+1) arithmetic operators:  +, -, *, /, %
+2) unary arithmetic operators:  +, -
+3) binary operators (not used in EECS 132, they manipulate the binary representations): &, |, ^, ~, <<, >>, >>>
+
+The above operators have the same type rules:
+a) The two operands (or one operand for the unary operators) must be a numeric primitive type (i.e. not boolean)
+b) The narrower operand is automatically widened to match the wider operand, and if both operands are narrower than int, they are automatically widened to int.
+c) The result is the type of the wider operand, or int if both operands are narrower than int
+
+ex:  5.0 + 3   (the result type is double because of the 5.0, before the addition is performed, the 3 is widened to 3.0)
+     'a' + 'b'  (the result type is int and both operands are widened to int before the addition is performed)
+     (short)3 + (byte)5   (the result is type int, and both operands are widened to int before the opeation is performed)

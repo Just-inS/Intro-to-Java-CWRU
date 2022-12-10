@@ -1,0 +1,42 @@
+To access something from inside a compound type, we use the "dot" operator.
+
+2) Calling methods of a class
+	
+	There are two types of methods: instance methods and class methods.
+	
+	a) A class method "acts" on the class as a whole and not instances of the class.	
+		
+		To call (execute) a class method you use either:
+		
+			class-name.method-name(0 or more inputs)
+			instance-location.method-name(0 or more inputs)
+			
+		While you can use either, we prefer the first.  That make it obvious that you are using a class method.
+		
+		Here are some examples:
+		      Math.cos(1.0) <- the cos method "operates" on the entire Math type.
+		      Math.sqrt(5.0)
+		      
+3) Accessing fields
+
+	There are two kinds of fields: instance fields and class fields.
+	
+		b) Class fields: a class field is a variable that belongs to the class as a whole. 
+		
+			As a result, there is a single copy of the variable that all instances of the class share.
+			To access a class field, you use either:
+			
+				class-name.field
+				instance-location.field
+				
+		As with class methods, we prefer that you use class-name.field when accessing a class field to make it obvious.
+		
+		Example, the Math class has a class field called PI that stores the value of PI.
+			double x = Math.PI
+			
+		Class fields are also called "static" fields and class methods are also called "static" methods. This is not a really good name because it sounds like a class field can't be changed.  It can.  
+		A field that cannot be changed is called a "final" field.  So Math.PI is a "static final" field.  
+		
+		"static" because it belongs to the class and "final" because the value of the field cannot be changed.
+
+

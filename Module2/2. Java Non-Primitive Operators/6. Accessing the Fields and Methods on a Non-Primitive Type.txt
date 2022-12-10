@@ -1,0 +1,35 @@
+To access something from inside a compound type, we use the "dot" operator.
+
+2) Calling methods of a class
+	There are two types of methods: instance methods and class methods.
+		
+		a) An instance method "acts" on an instance of the class.
+			To call (execute) an instance method you use: instance-location.method-name(0 or more inputs separated by commas)
+			For example, JFrame has an instance method setSize that takes two int values as input.  To call the method on the JFrame instance whose location is stored in window, we use:
+			
+			JFrame window = new JFrame()
+			window.setSize(300, 600) <- calls the setSize method on the object whose address is stored in window.  The method takes two inputs, both of type int
+			
+	Here are some other examples:
+
+		window.setVisible(true) <- calls the setVisible method on the object whose address is stored in window.  The method takes a single boolean input value
+		window.getHeight() <- calls the getHeight method on the object whose address is stored in window.  The method takes no input.  The method returns a value of type int.
+		new JFrame().setVisible(true) <- calls the setVisible method on the instance that was just created and returned by the new operator.
+		
+	Note: what is to the left of the dot has to be a value of an appropriate compound type.  Recall: in Java you can use *any* expression anywhere in your code as long as the types match.
+
+	window and "new JFrame()" are both expressions with type JFrame so both expressions can be to the left of the .
+
+3) Accessing fields
+
+	There are two kinds of fields: instance fields and class fields.
+	
+		a) Instance fields: an instance field is a variable that belongs to an instance of the class. As a result, each separate instance has its own version of the field.
+			To access an instance field, you use instance-location.field
+			Example: JFrame has a field (variable) of type boolean called rootPaneCheckingEnabled:
+			JFrame window
+			window = new JFrame()
+			boolean z = window.rootPaneCheckingEnabled
+			window.rootPaneCheckingEnabled = true
+			
+You can think of the . as an "apostrophe s".  The expression window.rootPane in Java is asking for window's rootPane variable.

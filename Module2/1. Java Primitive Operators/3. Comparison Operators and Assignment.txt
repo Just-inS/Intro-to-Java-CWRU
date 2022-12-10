@@ -1,0 +1,45 @@
+Primitive operations and their type rules:
+
+Following are the type rules for the different primitive operators.  
+
+Please see your textbook for precedence and associativity rules.
+
+A few additional "shortcut" operators will be discussed around midterms.
+
+6) equality operators:  ==, !=
+The type rules:
+
+a) The operands can be any type (primitive or non-primitive, and The narrower operand is automatically widened to the wider operand's type.- it is an error if the automatic type conversion is not allowed
+b) The result is boolean
+c) The value is determined by comparing the boolean values of the two operands (after the automatic widening).
+
+	ex: 5 == 5.0   <- first converts 5 to 5.0 before comparing
+	    1 != true   <- illegal because you can't convert between int and boolean
+	    false != true   <- legal because both operands are the same type
+	    
+7) assignment opertor:  =
+
+a) The left operand must evaluate to a variable.  The variable can be any type (primitive or non-primitive).
+b) The type of the right operand must be the same or narrower as the type of the variable on the left (*)
+c) The result is the same type as the variable and the value that was stored in the variable.
+
+Because = has a value and a type, we can place assignment operators anywhere in our code that expects a value.
+
+	Ex:  double x
+     	     x = 1     <-  legal, the int 1 is widened to double 1.0 and stored.  The result is type double and value 1.0.
+     	     int y
+     	     y = 1.0     <-   illegal.  1.0 is wider than int
+     	     x = y = 3   <-   legal. the y = 3 happens first.  The result is the int value 3, now we get x = 3, and the 3 is widened to 3.0
+     	     
+     	     	              The result of this expression will have 3 stored in y, 3.0 stored in x, and the expression will evaluate to the double 3.0
+     	     	              
+(*) EXCEPTION TO 7b (I did not get to this in lecture):
+	
+If the type on the right is int, the variable on the left is narrower than int, and the expression on the right is ONLY constants and primitive operators, and the value "fits" inside the range of values for the 
+narrower type, then the value on the right is automatically converted to the narrower type of the variable.
+   char c = 'a' + 5     <- legal
+   char c = x           <- not legal (no matter what the type of x is  --- do you see why?)
+   char c = 'A' + x     <- not legal for the same reason as above
+   char c = Character.MAX_VALUE + 1  <- not legal because the result of the + is too large to fit in a char type.
+   int  x = Integer.MAX_VALUE + 1    <- legal because the result of + is int
+   short s = 1000000 / 10000         <- legal.  The expression is only constants and primitive operators and the result is 100 which is int but fits into a short type.

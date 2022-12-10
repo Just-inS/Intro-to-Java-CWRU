@@ -1,0 +1,43 @@
+1. non-primitive type:  
+	any type in Java that is not one of the 8 primitives types.
+	
+2. reference type:  
+	another name for a non-primitive type.  The name "reference type" reminds us that the value of these types is not the data itself, but it is the location in memory of where the data for the value is 
+	stored.
+	
+3. compound type: 
+	another name for a non-primitive type.  The name reminds us that a non-primitive type is made up of many other types, variables, and functions.
+	
+4. class:  
+	the most common type of non-primitive type in Java
+	
+5. instance:  
+	a value whose type is a class, or any non-primitive type
+	
+6. object:  
+	another name for an instance.  A value whose type is a class, or any non-primitive type.
+
+7. field:  
+	a variable that is part of a non-primitive type.
+	
+8. method:  
+	a function that is part of a non-primitive type.  (In Java, all functions are methods.)
+	
+9. instance field:  
+	a field that belongs to an instance of a type.
+
+10. class field:  
+	a field that belongs to a non-primitive type (not necessarily a class), and not to the instances of that type.
+    
+11. static field: 
+	another name for a class field.
+
+12. instance method:  
+	a method that operates on a specific instance of a non-primitive type.
+
+13. class method:  
+	a method that does not operate on specific instances of a non-primitive type, but on the type itself (not necessarily a class).
+
+14. static method:  
+	another name for a class method. 
+

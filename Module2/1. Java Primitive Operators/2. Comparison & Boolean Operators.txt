@@ -1,0 +1,44 @@
+Primitive operations and their type rules:
+
+Following are the type rules for the different primitive operators.  
+
+Please see your textbook for precedence and associativity rules.
+
+A few additional "shortcut" operators will be discussed around midterms.
+
+4) comparison operators:  >, <, >=, <=
+
+The type rules:
+a) The operands must be a numeric primitive (a non-boolean primitive)
+b) The result type is boolean
+c) The narrower operand type is automatically widened before the operation is performed
+	3 <= 3.1    <-  Converts the int 3 to double 3.0 and then compares 3.0 to 3.1
+	3 < 4 < 5   <-  Illegal.  First computes 3 < 4, but then the left operand of the second < is type boolean!
+	
+5) boolean operators: &&, ||, !, &, |   (these are AND, OR, NOT, AND, and OR)
+
+The type rules:
+a) The operands (or operand for !) must be boolean
+d) The result is boolean
+c) && and || use "short-circuit evaluation".  If the result value is known from just the left operand, the right operand is not evaluated:
+
+AND: &&
+	left-operand  right-operand     result
+
+	true          true              true
+	true          false             false
+	false         NOT EVALUATED     false
+OR: ||
+	true          NOT EVALUATED     true
+	false         true              true
+	false         false             false
+	
+We usually use && and || instead of & and |.  The results are the same, and we ofthen take advantage of the short-circuit feature.
+
+For example, suppose we want to test if (y / x) > 1, but this test can cause an error if x stores 0 (divide by 0 error).
+
+We can then write the test as: if ((x != 0) && ((y / x) > 1))
+
+so that if x stores 0, we get "false" and do not evaluate y / x
+
+Suppose we want to test x < y < z.  While that is not valid Java, we can get something equivalent using &&: (x < y) && (y < z)
