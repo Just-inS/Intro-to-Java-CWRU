@@ -1,0 +1,57 @@
+Fields:
+
+There are two kinds of fields. Instance fields are memory that is allocated inside each instance.  
+Class fields are memory that is allocated outside of the instances.
+
+Thus, every instance has its own copy of an instance field.  There is only one copy of a class field that all the instances share.
+
+To create an instance field is the same as declaring a variable except you add an access modifier:
+	access-modifier type name
+	
+To create a class field, you do the same but add the word "static" before the variable type:
+
+	public class MyFirstClass extends Object {
+	private int myInstanceField;
+	private static int myClassField;
+	}
+	
+Every instance gets its own copy of the instance fields.  (Note you will have to change the access modifiers to public if you want to test this in the interactions pane.)
+
+	MyFirstClass c1 = new MyFirstClass();
+	c1.myInstanceField = 5;
+	MyFirstClass c2 = new MyFirstClass();
+	c2.myInstanceField = 6;
+	c1.myInstanceField    <-  returns 5
+	c2.myInstanceField    <-  returns 6
+	
+	-- these are two different variables with the same name stored inside two different objects
+	
+	c1.myClassField = 10;
+	c2.myClassField = 20;
+	c1.myClassField     <-  returns 20 because there is only 1 copy of this variable.
+	
+	MyFirstClass.myClassField   <-  also returns 20.  Since the field belongs to the class, you can use the classname to access it
+	
+Methods:
+
+An instance method definition is a method header followed by a compound statement.
+
+	access-modifier return-type name(input parameters) {
+	}
+	
+	
+	- here is an example that takes two inputs of type int and returns a value of type int
+	public int myMethod(int input1, int input2) {}
+	
+	
+A class method uses the same declaration but adds "static" before the return type:
+	public static int myClassMethod(int input1, int input2) {}
+	
+(An instance method "operates" on an instance while a class method does not.  More on this very soon!)
+
+- the input parameters are a sequence of 0 or more variable declarations separated by commas.  There is one variable declaration for each input your method will take.
+- the return type can be any type, or if the method will not return a value, it is "void".
+- the part starting with the access modifier is called the "method header"
+- the part between the { } is called the "method body".
+- all code describing the behavior of the method goes in the body.  The body is by definition a compound statement.
+

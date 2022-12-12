@@ -1,0 +1,53 @@
+Java Programming:
+
+All Java programming consists of writing compound/reference types. The basic reference type is the class.
+
+A class definition consists of a header followed by a compound statement.
+	
+	public class MyFirstClass extends Object {
+	}
+	
+The part the starts with "public" is called the "class header". 
+
+The part between the { } is called the "class body".
+	The class body is by definition a compound statement, and all elements of the class (fields, method, other compound types) go in the body (between the { }).
+	
+The parts are:
+	public:  the access modifier
+	class:   this is a class
+	MyFirstClass: the name of the class (a name can be almost anything, but professional Java style is to always start with a capital letter)
+	extends Object:  indicates the super class of this class.  Every class has exactly 1 super class (also called the "parent" class).
+	
+The access modifier determines where the code can be directly accessed.  (This is not a security feature.  All code can still be indirectly accessed.)
+
+The access modifier can be any of the four:
+	public:  the code can be used/accessed anywhere in the program
+	protected:  the code can be used in this type and in any type that extends this type (or in any type in the same folder as this type)
+	private: the code can only be used in the body of this type
+
+If you omit the access modifier, the default is "package": the code can be used in any type that is in the same package (i.e. in the same folder) as the containing type.
+
+What can go in a class body?
+	- field declarations (these can include assignment operators)
+	- methods
+	- other non-primitive type definitions (these are called inner types or nested types)
+	- constructors: special methods used to initialize instances of the class
+	- initializers: used to initialize the class itself - these are rarely used in Java programs and so we might not cover them in the course
+
+4. Each public class must go in its own file.  The file name must be the same as the class name, and the file extension must be .java.
+
+The class must be compiled before you use it.  The compiler creates a file with the same name but .class extension that contains the Java bytecode for the class.
+
+5. What's the point of a super class?
+	- Every class "inherits" all public and protected instance methods of the super class.
+	- Every class has access to all public and protected constructors, fields, class (i.e. static) methods, and nested types of the super class. (More about this later.)
+	
+	public class MyFirstFrame extends JFrame {
+	}
+	
+	-> Now MyFirstFrame inherits all the methods of JFrame, and so we can use them:
+	
+	MyFirstFrame f = new MyFirstFrame();
+	f.setVisible(true);
+	f.setSize(300,500);
+	and so on.
