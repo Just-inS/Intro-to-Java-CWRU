@@ -1,0 +1,60 @@
+Java Programming:
+
+Java expressions are pieces of code that have a value, and thus a type.
+
+Java statements are "commands" that do not have values.  They do a kind of operation.
+
+	1. A simple Java statement ends with a ;
+	2. A compound Java statement is bracketed by { } and contains 0 or more statements (simple or compound).
+	
+We have seen some statements already:
+
+	1. Variable declaration:    int x;
+	2. Variable assignment:     x = 5;
+	
+	- note that assignment without the ; is an expression with a value.
+
+3. Return statements are used to stop the execution of a method and return a value:
+
+	return 10;
+	
+The type of the value returned must match (or be narrower than) the return type of the method.
+
+Writing Methods:
+
+Let's put code in the body of a method so that it does something. Here is an example:
+
+	public class MyFirstClass extends Object {
+	  public double average(int input1, int input2) {
+	    int sum = input1 + input 2;
+	    double avg = sum / 2.0;
+	    return avg;
+	  }
+	}
+	
+A return statement must be included in any method that has a non-void return type.  The return statement gives the output of the method.
+
+Note that we can shorten the code.  One hint is that if, after declaring and assigning a variable, you only use the variable once, then you do not need the variable.  
+Instead, replace the variable with the value you assigned it:
+
+The variable sum is only used once in this code so:
+
+	int sum = input1 + input2;
+	double avg = sum / 2.0;
+	
+	can become:
+	
+	double avg = (input1 + input2) / 2.0;
+	
+Likewise, the variable avg is only used once.  The method now becomes:
+
+	public double average(int input1, int input2) {
+	  return (input1 + input2) / 2.0;
+	}
+	
+	
+	
+	
+	
+	
+	

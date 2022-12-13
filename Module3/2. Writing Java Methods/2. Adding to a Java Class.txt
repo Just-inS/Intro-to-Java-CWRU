@@ -1,0 +1,161 @@
+An Interesting Java Class, inherited methods, the keyword "this"
+
+
+In lecture, we built GeometricFrame, a class that adds new features to JFrame.
+
+First, we create the class structure:
+
+	public class GeometricFrame extends JFrame {
+	}
+	(Remember to import something!)
+	
+	
+Now, all the new features of what we want to add to GeometricFrame go in the class body:  between the { and }
+
+The super/parent class:
+Every class (except one) in Java has exactly one super, or parent, class.
+
+The super class is set by the "extends ..." portion of the class header.
+
+If you do not write the "extends ...", then your class extends the Object class by default. (Object is the only class in Java that does not have a super clsas.)
+
+A class inherits all the public and protected instance methods of its super class.
+A class has access to all the public and protected class methods, instance and class fields, nested classes of the super class.
+
+	- essentially a class has access to everything public and protected of the super class, but the instance methods are special.
+	
+Instance methods are inherited from the super class.
+You will see the difference between "access" and "inherited" in a lecture coming soon.
+
+In our example, GeometricFrame's super class is JFrame. That means GeometricFrame inherits all the public and protected instance methods of JFrame (plus access to the other public and protected things).
+
+So the GeometricFrame can do everything that a JFrame can do.  It can become visible, change its size, etc.
+
+How do we get the GeometricFrame to do something JFrame cannot?   We put a method inside the GeometricFrame class body.
+
+Everything we place inside the class will be indented.  This is the professional Java style (and general coding style) used to make clear what is inside the class and what is not.
+
+We added three methods:
+
+1) transpose:  flips the height and with width of the window.
+	
+	What access modifier?  public: we want to be able to use this method anywhere.
+	What return type?  void: there is nothing we need to return.  
+	(Hint: a method should just do what its name says it will do.  Any additional actions will only confuse the programmer.)
+	
+	What name?  transpose:  a great choice!
+	What input values?  No input.  We want to just type j.transpose() to flip the window, similar to j.getHeight() to get the height. 
+	
+	One way to think of it: the window knows its own height and width.  
+	We only should only provide as input data that the window does not already know.
+	
+	----
+	
+	public void transpose() {
+
+	Now, how do we get the height and width of the window?  We use the getHeight() and getWidth() methods.  But whose height and width? 
+	When we type window.transpose() we want window's width and height, but window is not declared inside the method body or the class.
+	
+The Java keyword we need is "this".
+
+	this is a special variable that exists inside instance (non-static) methods. 
+	this stores the address to the object that the method is acting on.
+	this acts a hidden parameter to the method.  We do not see it as input to the method, but it is.  
+	
+	When we call window.transpose(), Java will take the value stored in window (an address for an object) and copy it into the special variable called this.
+	
+	public void transpose() {
+	  int height = this.getHeight();
+	  int width = this.getWidth();
+	  this.setSize(height, width);
+	}
+	
+	As a hint, you don't actually need variables here.  Can you write it without variables?  See the posted code for the no-variables version.
+	
+2) scale:   scales a window by a scaling factor.
+
+	What access modifier?  public: we want to be able to use this method anywhere.
+	What return type?      void: there is nothing we need to return
+	What name?             scale
+	What input values?     A single double to indicate how much to scale the window dimensions by.
+	
+	
+	This code is very similar to transpose, but notice that we must use a typecast.  (It would be even nicer if we rounded,)
+	
+	public void scale(double factor) {
+	    this.setSize((int)(this.getWidth() * factor), (int)(this.getHeight() * factor));
+	}
+
+
+3) isEqualArea:  returns true if this window is equal in area to another window
+
+	What access modifier?  public so we can use the code anywhere
+	What return type?  boolean, to say true or false
+	What input values?  We need to know what window we are comparing this window to.  So we need a single input value
+	What should I use for the input type?  I decided on JFrame.
+	
+	public boolean isEqualArea(JFrame other) {
+	
+	
+	Now, to compare the area, we need the width and the height
+	
+	
+	public boolean isEqualArea(JFrame other) {
+	  int myArea = this.getWidth() * this.getHeight();
+	  int otherArea = other.getWidth() * other.getHeight();
+  
+	Now, what do we return?  The result of comparing the two areas.  (Remember, that we can use any expression anywhere in the code as long as the types match.  
+									  Here, we need to return a boolean.)
+									  
+	return myArea == otherArea;
+	
+	
+	So, here is the full code:
+	
+	public boolean isEqualTo(JFrame other) {
+	  int myArea = this.getWidth() * this.getHeight();
+	  int otherArea = other.getWidth() * other.getHeight();
+	  return myArea == otherArea;
+	}
+
+	Again, we can write this without using the two variables "myArea" and "otherArea".
+
+	How do we call the method?
+	
+	GeometricFrame frame1 = new GeometricFrame(100, 100);
+	GeometricFrame frame2 = new GeometricFrame(1000, 10);
+	frame1.isEqualArea(frame2)
+	
+	What is important?  The value to the left of the dot must be of type GeometricFrame, and frame1 is.
+	The input value must be of type JFrame, but we gave it a frame2 that has type GeometricFrame.
+	
+	This is okay because the rules for automatic widening applies to non-primitive types as well as primitive types.
+	
+		Just as int values are automatically widened to double when needed (but the other direction requires a typecast),
+		a value that is a class type can be automatically widened to its super class (but the other direction requires a typecast).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
