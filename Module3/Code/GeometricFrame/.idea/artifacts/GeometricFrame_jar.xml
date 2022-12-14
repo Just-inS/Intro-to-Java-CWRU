@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GeometricFrame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GeometricFrame_jar</output-path>
+    <root id="archive" name="GeometricFrame.jar">
+      <element id="module-output" name="GeometricFrame" />
+    </root>
+  </artifact>
+</component>

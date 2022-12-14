@@ -1,0 +1,194 @@
+Java Non-Primitive Type Rules
+
+Let's create a Phone class to represent telephones:
+
+	public class Phone extends Object  {
+	   /* a method to make a call to a particular number */
+	   public void makeCall(PhoneNumber number) {
+	      /* some code goes here */
+	   }
+	}
+	
+What does the "extends Object" mean?  It says that any instance that is type Phone also is type Object.
+
+	The Phone class "inherits" all the public and protected instance methods of Object.
+	The Phone class "has access to" all the public and protected fields (both class and instance), class (i.e. static) methods, constructors, and nested classes of Object.
+	
+	public class CellPhone extends Phone {
+	   /* a method to send a text */
+	   public void sendText(PhoneNumber number, String text) {
+	     /* some code goes here */
+	   }
+	   // <- Note that CellPhone inherits the method makeCall from Phone
+	}
+	
+	
+	public class SmartPhone extends CellPhone {
+	   /* a method to download an app */
+	   public void downloadApp(App app) {
+	     /* some code goes here */
+	   }
+	   /* a method to use an app */
+	   public void useApp(App app) {
+	     /* some code goes here */
+	   }
+	   // <- Note that SmartPhone inherits makeCall and sendText from CellPhone
+	}
+	
+	
+	public class iPhone extends SmartPhone {
+	  // <- iPhone inherits makeCall, sendText, downloadApp, and useApp from CellPhone
+	  // <- iPhone will change the behavior of downloadApp so that it gets the app from the AppStore
+	  // <- changing the behavior of a method is called "overriding" the method
+	}
+	
+	
+	public class AndroidPhone extends SmartPhone {
+	  // <- AndroidPhone inherits makeCall, sendText, downloadApp, and useApp from CellPhone
+	  // <- AndroidPhone will change the behavior of downloadApp so that it gets the app from the Google Play
+	  // <- changing the behavior of a method is called "overriding" the method
+	}
+	
+	
+Here is a map of the class heirarchy with a few extra classes thrown in
+
+										Object
+										   |
+								Phone (includes the method makeCall)
+										/    \
+									LandLine    CellPhone (includes the method sendText)
+										/    \
+									FlipPhone   SmartPhone (includes the methods downloadApp and useApp)
+										/      \
+					(overrides the method downloadApp)  Android    iPhone (overrides the method downloadApp, includes the method faceTime)
+								    	      /
+								     	   Galaxy9
+								 	    /
+									Galaxy9Edge
+
+
+Suppose we create an instance of Galaxy9:   Galaxy9 phone = new Galaxy9();
+
+	1. When you create an instance of a class: new Galaxy9()
+		the instance is type Galaxy9, but it is also the type of every class it extends (all the way up to Object),  so it is also type Android, SmartPhone, CellPhone, Phone, and Object
+		
+		It is all these types at the same time.  This is called "polymorphism" for "many types".
+		
+	2. The "true type" is the type it is created as:  new Galaxy9() means the instance will have true type Galaxy9.
+		(The "true type" is called the "run-time type" in Java references or sometimes just "class".)
+		
+	Every object knows its true type (it is stored in the object's data), and the true type does not change.
+	
+	3. The "current type" is which of its polymorphic types it is typecast to.
+	
+		Every place that value is used in the code will have a current type associated with it.
+		(The "current type" is called the "compile-time type" in Java references or sometimes just "type".)
+		
+	4. You can typecast a non-primitive value to any of its valid polymorphic types.
+	
+		(An object created with "new Galaxy9()" can be typecast as any of Object, Phone, CellPhone, SmartPhone, Android, or Galaxy9, and no other class.
+		
+		For example, Galaxy9Edge extends Galaxy9.  If the object's true type is Galaxy9, it cannot be typecast to Galaxy9Edge.
+		Likewise iPhone is on a "different branch" from Galaxy9 so an object with true type Galaxy9 cannot be typecast to iPhone.)
+		
+	5. A typecast that goes "up" the hierarchy (wider) is automatic, by a typecast that goes "down" the hierarchy (narrower) must be explicit.
+	
+	6. The current type determines what methods you are allowed to call as well as what fields and inner classes you will access.
+	
+		For example, CellPhone c = new iPhone();
+		
+		The object stored in c has true type iPhone, but the current type of c is CellPhone.
+		The typecast from iPhone to CellPhone is automatic and legal because CellPhone is wider than (up the hierarchy from) iPhone.
+		
+		You can only call methods valid for CellPhone on c:
+		
+			c.sendText(...)    is legal
+			c.downloadApp(...)  is not.
+				
+				= even though the object stored in c is currently a iPhone, you can't write this code because it will not work for *all* cell phones. 
+				Later in the program, c might store a FlipPhone.
+				
+	7. The true type determines the version of an instance method that is called.
+	
+		For example:
+		
+		SmartPhone p = new iPhone();
+		p.downloadApp(...)   	<- this will get the app from the AppStore
+					<-  why?  Because the true type of the object stored in p is iPhone and the iPhone class overrode the downloadApp method to use the AppStore
+					
+		p = new AndroidPhone();
+		p.downloadApp(...)   	<-  Same code, but now it will download from Google Play
+					<-  why?  Even though the current type of p is SmartPhone, the object stored in p has true type AndroidPhone, and the AndroidPhone class overrode the downloadApp method
+					
+Why have this hierarchy?
+
+It enables us to write a method once and have it works for lots of different kinds of types:
+
+	public void securePhone(SmartPhone p) {
+	   p.downLoadApp(CWRUSheildApp);
+	}
+	
+Now we can write a program:
+
+	For every phone in our database, call: securePhone(phone) and it will load the CWRUShield app onto the phone.  
+	We don't need to write special code to test whether the phone we are loading the app onto is Android, iOS, BlackBerry, or whatever.  
+	We just call the downloadApp method of SmartPhone and count on the instance to know it's true type and thus to know which overridden version of the method to use.
+	
+A summary of the rules:
+
+	1) Every object is created as a specific type using the new operator. I call this type the "true type".
+		
+		The true type determines how the object will behave. It does this by determining what version of a method is run.
+		The true type never changes.
+		
+		Ex: new MyFirstWindow() creates an instance whose true type is MyFirstWindow.   
+		ew JFrame() creates an instance whose true type is JFrame.
+		
+	2) The object is not only its "true type".  It is also the type of the super class of the true type, that class's super class, and so on up to Object.  
+		
+		This property of being many types at the same time is called "polymorphism".
+		
+	3) A typecast does not change the object.  The typecast does not change the true type of the object.  
+	
+		Instead, the typecast determines which of the legal polymorphic types for the object is the object acting as at this line of code.
+		
+		I call the type that the object is acting as the "current type".  The compiler uses the current type to determine what methods you are allowed to call and what fields you can access.
+		
+		You can only call methods and access fields that exist for that current type.
+		
+		The specific field or class method accessed will depend on the current type, but the instance method that is used will be the version of the true type.
+		
+		Example:
+		
+			public class MyFirstClass extends Object {
+			   public int add(int x, int y) {
+			        return x + y;
+			   }
+			}
+			
+			public class MySecondClass extends MyFirstClass {
+			   public int mult(int x, int y) {
+			     retrn x * y;
+			   }
+			}
+			
+			MySecondClass c2 = new MySecondClass();
+			c2.mult(5, 6) <- legal, MySecondClass has a mult method
+			c2.add(5, 6) <- legal, MySecondClass has an add method (inherited from MyFirstClass)
+			MyFirstClass c1 = c2 <- legal, this is widening so the typecast is automatic
+			c1.add(3, 4) <- legal, MyFirstClass has an add method
+			c1.mult(3, 4) <- illegal, MyFirstClass does not have a mult method (it does not matter that the object currently stored in c1 has true type MySecondClass)
+			c2 = c1 <- illegal, this is narrowing so an explicit typecast is needed
+			c2 = (MySecondClass)c1 <- legal because the true type of the object on the right hand side is MySecondClass
+			c2 = (MySecondClass)new MyFirstClass() <- illegal, the true type of the object on the right hand side is MyFirstClass
+
+
+
+
+
+
+
+
+
+
+
